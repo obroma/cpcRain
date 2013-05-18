@@ -8,7 +8,7 @@ library(reshape2)
 library(gridExtra) # for plotting multiple panels within a page
 
 #-------------------------------------------------------------------------------
-# hurricane Sandy, 2012/10/25, entire world
+# hurricane Sandy, 2012/10/22, entire world
 yr  <- 2012
 mo  <- 10
 day <- 22

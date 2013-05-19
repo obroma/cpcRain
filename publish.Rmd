@@ -33,8 +33,20 @@ sandy <- Fn_Read_CPC_RawData(yr, mo, day)
 # re-orient data for plotting
 sandy <- Fn_Rotate_Matrix(Fn_Flip_Matrix_Rows(sandy))
 # plot data
-image(sandy, col = terrain.colors(4), axes = FALSE)
+plot1 <- ggplot(data = melt(sandy)) + 
+  geom_raster(aes(Var1, Var2, fill = value)) + 
+  theme(axis.text = element_blank(), axis.ticks = element_blank()) + 
+  labs(x = NULL, y = NULL, fill = "Rain/Snow (mm/day)") + 
+  ggtitle(as.Date(paste(yr, mo, day, sep = "-")))
+# save plot
+png("sandy1.png", width = 10, height = 8, units = "in", res = 72)
+grid.arrange(arrangeGrob(plot1, 
+                         main = textGrob("Hurricane Sandy", 
+                                         vjust = 1, 
+                                         gp = gpar(fontface = "bold", cex = 1.5))))
+garbage <- dev.off()
 ```
+![figure 1] [sandy1]
 
 You could see that the Caribbean, where Sandy was on Oct 22nd, has a lot of rain. To answer my question in the title of this blog - it was also pouring in several other parts of the world (mainly tropical regions).
 
@@ -62,7 +74,7 @@ for (eachDay in 1:length(days)) {
     ggtitle(as.Date(paste(yr, mo, days[eachDay], sep = "-")))
 }
 # save plot
-png("sandy2.png")
+png("sandy2.png", width = 10, height = 8, units = "in", res = 72)
 grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
                          ncol = 2, 
                          main = textGrob("Hurricane Sandy", 
@@ -109,7 +121,7 @@ for (eachDay in 1:length(days)) {
     ggtitle(as.Date(paste(yr, mo, days[eachDay], sep="-")))  
 }
 # save plot
-png("sandy3.png")
+png("sandy3.png", width = 10, height = 8, units = "in", res = 72)
 grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
                          ncol = 2, 
                          main = textGrob("Hurricane Sandy", 
@@ -126,5 +138,6 @@ Summary
 
 Using this code a lot more analyses could be done. Hopefully you will find this code useful.
 
+[sandy1]: sandy1.png "figure 1"
 [sandy2]: sandy2.png "figure 2"
 [sandy3]: sandy3.png "figure 3"

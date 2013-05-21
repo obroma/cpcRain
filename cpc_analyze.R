@@ -1,19 +1,11 @@
-
+# author: Gopi Goteti
 # analyze precipitation data from the Climate Prediction Center (CPC)
 
-* author: Gopi Goteti
+source("cpc_lib.R")
 
-```{r message=FALSE}
-library(knitr)
-opts_chunk$set(echo = FALSE, message = FALSE, results='hide', cache=TRUE, 
-               eval = FALSE ## just to allow .md to be compiled
-               )
-```
-
-```{r fig.width = 5, fig.height = 4}
-require(cpcRain)
-
-
+library(ggplot2)
+library(reshape2)
+library(gridExtra) # for plotting multiple panels within a page
 
 #-------------------------------------------------------------------------------
 # hurricane Sandy, 2012/10/22, entire world
@@ -32,16 +24,11 @@ plot1 <- ggplot(data = melt(sandy)) +
   theme(axis.text = element_blank(), axis.ticks = element_blank()) + 
   labs(x = NULL, y = NULL, fill = "Rain/Snow (mm/day)") + 
   ggtitle(paste0("Hurricane Sandy: ", as.Date(paste(yr, mo, day, sep = "-"))))
-plot1
 # save plot
 ggsave(plot1, file="sandy1.png", width = 10, height = 8)
-```
 
-
-## hurricane Sandy, 2012, entire duration 2012/10/22-31, entire world
-
-```{r fig.width = 5, fig.height = 4}
-
+#-------------------------------------------------------------------------------
+# hurricane Sandy, 2012, entire duration 2012/10/22-31, entire world
 # get raw data from CPC
 Fn_Download_CPC_Data_ManyDays(yr, mo, 22, yr, mo, 31)
 # process and plot rain on 4 select days
@@ -60,21 +47,17 @@ for (eachDay in 1:length(days)) {
     ggtitle(as.Date(paste(yr, mo, days[eachDay], sep = "-")))
 }
 # save plot
-sandy2 <- grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
+png("sandy2.png", width=10, height = 8, units = "in", res = 72)
+grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
                          ncol = 2, 
                          main = textGrob("Hurricane Sandy", 
                                          vjust = 1, 
                                          gp = gpar(fontface = "bold", cex = 1.5))))
-
-png("sandy2.png", width=10, height = 8, units = "in", res = 72)
-sandy2
 garbage <- dev.off()
-```
-
-## hurricane Sandy, 2012, entire duration 2012/10/22-31, eastern USA
 
 
-```{r fig.width = 5, fig.height = 4}
+#-------------------------------------------------------------------------------
+# hurricane Sandy, 2012, entire duration 2012/10/22-31, eastern USA
 # lat-lon bounds of eastern US
 maxLat <- 48.0
 minLat <- 23.0
@@ -104,14 +87,11 @@ for (eachDay in 1:length(days)) {
     ggtitle(as.Date(paste(yr, mo, days[eachDay], sep="-")))
   
 }
-sandy.plot <- grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
+# save plot
+png("sandy3.png", width=10, height = 8, units = "in", res = 72)
+grid.arrange(arrangeGrob(plot4[[1]], plot4[[2]], plot4[[3]], plot4[[4]], 
                          ncol = 2, 
                          main = textGrob("Hurricane Sandy", 
                                          vjust = 1, 
                                          gp = gpar(fontface = "bold", cex = 1.5))))
-# save plot
-
-png("sandy3.png", width=10, height = 8, units = "in", res = 72)
-sandy.plot
 garbage <- dev.off()
-```

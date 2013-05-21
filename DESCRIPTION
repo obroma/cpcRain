@@ -5,7 +5,8 @@ Version: 1.0
 License: MIT
 Title: cpcRain
 Description: 
-Requires: ggplot2,
+Depends:
+    ggplot2,
     reshape2,
     gridExtra
 Suggests:

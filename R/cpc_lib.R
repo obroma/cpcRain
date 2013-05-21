@@ -22,7 +22,12 @@ cpcLatVec   <- -89.75 + (1:cpcNumLat)*cpcRes - cpcRes # latitudes
 cpcLonVec   <- 0.25 + (1:cpcNumLon)*cpcRes - cpcRes # longitudes
 
 #-------------------------------------------------------------------------------
-# identify the file name quirks for each year
+##' identify the file name quirks for each year
+##' @title Get Filename Quirks
+##' @param yr year
+##' @return something
+##' @export
+##' @author Gopi Goteti
 FnGetFileNameQuirks <- function(yr) {
   
   if (yr %in% seq(1979, 2005)) {
@@ -45,7 +50,15 @@ FnGetFileNameQuirks <- function(yr) {
 }
 
 #-------------------------------------------------------------------------------
-# function to download single CPC data file from their ftp site
+
+##' function to download single CPC data file from their ftp site
+##' @title Download single CPC data file
+##' @param yr year, integer
+##' @param mo month, integer
+##' @param day day, integer
+##' @return something
+##' @export
+##' @author Gopi Goteti
 Fn_Download_CPC_Data_OneDay <- function(yr, mo, day) {
   
   # check year and month validity
@@ -93,7 +106,18 @@ Fn_Download_CPC_Data_OneDay <- function(yr, mo, day) {
 
 
 #-------------------------------------------------------------------------------
-# function to download multiple CPC data files from their ftp site
+
+##' function to download single CPC data file from their ftp site
+##' @title Download single CPC data file
+##' @param begYr year, integer
+##' @param begMo mo month, integer
+##' @param begDay day, integer
+##' @param endYr year, integer
+##' @param endMo mo month, integer
+##' @param endDay day, integer
+##' @return something
+##' @export
+##' @author Gopi Goteti
 Fn_Download_CPC_Data_ManyDays <- function(begYr, begMo, begDay, 
                                           endYr, endMo, endDay) {
   
@@ -156,7 +180,14 @@ Fn_Download_CPC_Data_ManyDays <- function(begYr, begMo, begDay,
 }
 
 #-------------------------------------------------------------------------------
-# function to read downloaded CPC data
+##' function to read downloaded CPC data
+##' @title Download single CPC data file
+##' @param yr year, integer
+##' @param mo mo month, integer
+##' @param day day, integer
+##' @return something
+##' @export
+##' @author Gopi Goteti
 Fn_Read_CPC_RawData <- function(yr, mo, day) {
 
   # file name
@@ -212,21 +243,40 @@ Fn_Read_CPC_RawData <- function(yr, mo, day) {
 }
 
 #-------------------------------------------------------------------------------
-# function to flip a matrix upside down (change CPC orientation from S-N to N-S)
+##' function to flip a matrix upside down (change CPC orientation from S-N to N-S)
+##' @title Flip Matrix NS
+##' @param mat matrix
+##' @return matrix, flipped upside down
+##' @export
+##' @author Gopi Goteti
 Fn_Flip_Matrix_Rows <- function(mat) {
   return (mat[nrow(mat):1,])
 }
 
 #-------------------------------------------------------------------------------
-# function to rotate a matrix 90 degress clockwise for plotting only
-# used to counteract the "image" function default behavior
+##' function to rotate a matrix 90 degress clockwise for plotting only
+##' used to counteract the "image" function default behavior
+##' @title Flip Matrix EW
+##' @param mat matrix
+##' @return matrix, flipped upside down
+##' @export
+##' @author Gopi Goteti
 Fn_Rotate_Matrix <- function(mat) {
   return (t(mat)[,nrow(mat):1])
 }
 
 #-------------------------------------------------------------------------------
-# function to take global data and extract a regional subset and then convert
-# it a form used by ggplot
+##' function to take global data and extract a regional subset and then convert
+##' it a form used by ggplot
+##' @title Extract Region
+##' @param inMat 
+##' @param maxLat 
+##' @param minLat 
+##' @param maxLon 
+##' @param minLon 
+##' @return a matrix, subset by specified bounding box 
+##' @export
+##' @author Gopi Goteti
 Fn_Get_Region_Data_For_Plot <- function(inMat, maxLat, minLat, maxLon, minLon) {
   # row/col corresp to the region
   rowId <- which(cpcLatVec <= maxLat & cpcLatVec >= minLat)

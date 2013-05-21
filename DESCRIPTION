@@ -1,12 +1,16 @@
 Package: cpcRain
 Maintainer: Who to complain to <yourfault@somewhere.net>
-Author: 
+Author: Gopi Goteti
 Version: 1.0
-License: GPL-3
-Title: 
+License: MIT
+Title: cpcRain
 Description: 
+Requires: ggplot2,
+    reshape2,
+    gridExtra
 Suggests:
     testthat,
     roxygen2
 Collate:
     'cpcRain-package.r'
+    'cpc_lib.R'

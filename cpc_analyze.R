@@ -1,3 +1,5 @@
+wanted to know what the analysis contain
+
 # author: Gopi Goteti
 # analyze precipitation data from the Climate Prediction Center (CPC)
 
